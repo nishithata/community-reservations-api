@@ -1,0 +1,37 @@
+# Run the production image locally with PostgreSQL:
+#   docker compose up --build
+#   docker compose exec api bin/rails db:seed      # demo data
+# API: http://localhost:3000   (UI: serve ./web with any static server)
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: community_reservations
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://postgres:postgres@db:5432/community_reservations
+      SECRET_KEY_BASE: local-docker-secret-key-base-not-for-real-deployments
+      DEMO_ADMIN_PASSWORD: admin-password-123
+      # Local HTTP only: don't redirect to HTTPS.
+      RAILS_ASSUME_SSL: "false"
+      RAILS_FORCE_SSL: "false"
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

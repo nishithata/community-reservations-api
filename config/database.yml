@@ -1,0 +1,21 @@
+# PostgreSQL is required: reservations rely on a GiST exclusion constraint
+# (btree_gist) to prevent overlapping bookings at the database level.
+#
+# Locally, Rails connects over the default socket as your OS user.
+# In CI and production, DATABASE_URL is used instead (Rails merges it in automatically).
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: community_reservations_api_development
+
+test:
+  <<: *default
+  database: community_reservations_api_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>

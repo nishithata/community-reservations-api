@@ -1,0 +1,25 @@
+study_room:
+  name: Study Room
+  description: Quiet room with a whiteboard
+  category: room
+  location: Library
+  capacity: 6
+  active: true
+
+projector:
+  name: Projector Kit
+  description: Projector and screen
+  category: equipment
+  location: Front desk
+  active: true
+
+garden:
+  name: Garden Plot
+  category: space
+  location: Riverside
+  active: true
+
+retired:
+  name: Retired Speaker
+  category: equipment
+  active: false

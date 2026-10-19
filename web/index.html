@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Resource Reservations · Demo</title>
+  <meta name="description" content="Demo UI for a Ruby on Rails REST API that manages community resources and reservations.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◆</span>
+      <div>
+        <h1>Community Reservations</h1>
+        <p class="subtitle">Demo client for a Ruby on Rails REST API</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span id="api-status" class="pill pill-muted" title="API health">Checking API…</span>
+      <div id="session" class="session" hidden>
+        <span id="session-name"></span>
+        <span id="session-role" class="pill"></span>
+        <button id="logout-btn" class="btn btn-ghost" type="button">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Auth -->
+    <section id="auth-card" class="card">
+      <h2 id="auth-title">Log in</h2>
+      <p class="muted">Try it instantly with the public demo account, or create your own.</p>
+      <form id="auth-form" class="form" novalidate>
+        <label id="name-field" hidden>Name
+          <input name="name" autocomplete="name" maxlength="100">
+        </label>
+        <label>Email
+          <input name="email" type="email" autocomplete="email" required>
+        </label>
+        <label>Password
+          <input name="password" type="password" autocomplete="current-password" minlength="8" required>
+        </label>
+        <p id="auth-error" class="form-error" role="alert" hidden></p>
+        <div class="row">
+          <button class="btn btn-primary" type="submit" id="auth-submit">Log in</button>
+          <button class="btn" type="button" id="demo-login-btn">Use demo account</button>
+        </div>
+        <button class="link" type="button" id="auth-toggle">New here? Create an account</button>
+      </form>
+    </section>
+
+    <!-- Resources -->
+    <section class="card span-2">
+      <div class="card-header">
+        <h2>Resources</h2>
+        <form id="resource-filters" class="filters" role="search">
+          <input name="q" type="search" placeholder="Search name or description" aria-label="Search resources">
+          <select name="category" aria-label="Category">
+            <option value="">All categories</option>
+            <option value="room">Rooms</option>
+            <option value="equipment">Equipment</option>
+            <option value="space">Spaces</option>
+            <option value="vehicle">Vehicles</option>
+          </select>
+        </form>
+      </div>
+      <ul id="resource-list" class="resource-list" aria-live="polite"></ul>
+      <nav class="pager" id="resource-pager" aria-label="Resource pages"></nav>
+    </section>
+
+    <!-- Selected resource: availability + booking -->
+    <section id="booking-card" class="card span-2" hidden>
+      <div class="card-header">
+        <div>
+          <h2 id="selected-name"></h2>
+          <p id="selected-meta" class="muted"></p>
+        </div>
+        <label class="inline">Date (UTC)
+          <input id="availability-date" type="date">
+        </label>
+      </div>
+      <p id="selected-description"></p>
+      <h3>Booked on this day</h3>
+      <ul id="availability-list" class="slots"></ul>
+
+      <form id="booking-form" class="form booking-form" novalidate>
+        <h3>Book a slot</h3>
+        <div class="row">
+          <label>Start time (UTC)
+            <input name="start" type="time" step="900" required value="10:00">
+          </label>
+          <label>Duration
+            <select name="duration">
+              <option value="30">30 minutes</option>
+              <option value="60" selected>1 hour</option>
+              <option value="120">2 hours</option>
+              <option value="240">4 hours</option>
+            </select>
+          </label>
+        </div>
+        <label>Notes (optional)
+          <input name="notes" maxlength="500" placeholder="What is it for?">
+        </label>
+        <p id="booking-error" class="form-error" role="alert" hidden></p>
+        <button class="btn btn-primary" type="submit">Reserve</button>
+        <p id="booking-login-hint" class="muted" hidden>Log in to make a reservation.</p>
+      </form>
+    </section>
+
+    <!-- My reservations -->
+    <section id="reservations-card" class="card span-3" hidden>
+      <div class="card-header">
+        <h2 id="reservations-title">My reservations</h2>
+        <select id="reservation-status" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Resource</th><th>When (UTC)</th><th>Booked by</th><th>Status</th><th>Notes</th><th></th></tr>
+          </thead>
+          <tbody id="reservation-rows"></tbody>
+        </table>
+      </div>
+      <nav class="pager" id="reservation-pager" aria-label="Reservation pages"></nav>
+    </section>
+
+    <!-- Admin -->
+    <section id="admin-card" class="card" hidden>
+      <h2>Add a resource <span class="pill">admin</span></h2>
+      <form id="resource-form" class="form" novalidate>
+        <label>Name <input name="name" required maxlength="120"></label>
+        <label>Category
+          <select name="category">
+            <option value="room">Room</option>
+            <option value="equipment">Equipment</option>
+            <option value="space">Space</option>
+            <option value="vehicle">Vehicle</option>
+          </select>
+        </label>
+        <label>Location <input name="location" maxlength="200"></label>
+        <label>Capacity <input name="capacity" type="number" min="1"></label>
+        <label>Description <textarea name="description" rows="2" maxlength="2000"></textarea></label>
+        <p id="resource-error" class="form-error" role="alert" hidden></p>
+        <button class="btn btn-primary" type="submit">Create resource</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>API: <code id="api-url"></code></span>
+    <span>·</span>
+    <a href="https://github.com/nishithata/community-reservations-api" target="_blank" rel="noopener">Source on GitHub</a>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

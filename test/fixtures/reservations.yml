@@ -1,0 +1,29 @@
+member_upcoming:
+  user: member
+  resource: study_room
+  starts_at: <%= 2.days.from_now.utc.change(hour: 10) %>
+  ends_at: <%= 2.days.from_now.utc.change(hour: 12) %>
+  status: confirmed
+  notes: Study group
+
+other_upcoming:
+  user: other_member
+  resource: study_room
+  starts_at: <%= 3.days.from_now.utc.change(hour: 10) %>
+  ends_at: <%= 3.days.from_now.utc.change(hour: 11) %>
+  status: confirmed
+
+member_cancelled:
+  user: member
+  resource: projector
+  starts_at: <%= 2.days.from_now.utc.change(hour: 10) %>
+  ends_at: <%= 2.days.from_now.utc.change(hour: 12) %>
+  status: cancelled
+  cancelled_at: <%= 1.day.ago.utc %>
+
+member_past:
+  user: member
+  resource: projector
+  starts_at: <%= 2.days.ago.utc.change(hour: 10) %>
+  ends_at: <%= 2.days.ago.utc.change(hour: 11) %>
+  status: confirmed
