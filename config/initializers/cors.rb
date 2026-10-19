@@ -5,7 +5,7 @@
 # production to restrict which sites may call the API from a browser.
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins(*ENV.fetch("CORS_ORIGINS", "*").split(",").map(&:strip))
+    origins(*(ENV["CORS_ORIGINS"].presence || "*").split(",").map(&:strip).reject(&:empty?))
 
     resource "/api/*",
       headers: :any,
