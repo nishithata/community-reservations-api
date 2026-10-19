@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b2a6b"/>
+      <stop offset="0.55" stop-color="#3355d1"/>
+      <stop offset="1" stop-color="#7c4dff"/>
+    </linearGradient>
+    <linearGradient id="logo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dfe5ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#0b1440" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1080" cy="-40" r="260" fill="#ffffff" opacity="0.06"/>
+  <circle cx="-60" cy="660" r="240" fill="#ffffff" opacity="0.05"/>
+
+  <!-- Brand -->
+  <g transform="translate(72,70)">
+    <rect width="64" height="64" rx="16" fill="url(#logo)"/>
+    <text x="32" y="44" text-anchor="middle" font-family="Helvetica Neue, Arial" font-size="34" fill="#3355d1">◆</text>
+    <text x="84" y="27" font-family="Helvetica Neue, Arial" font-size="22" font-weight="600" fill="#c9d3ff" letter-spacing="2">COMMUNITY OF GUARDIANS</text>
+    <text x="84" y="55" font-family="Helvetica Neue, Arial" font-size="22" fill="#e6eaff">Ruby on Rails REST API · Live demo</text>
+  </g>
+
+  <!-- Title -->
+  <text x="72" y="236" font-family="Helvetica Neue, Arial" font-size="66" font-weight="700" fill="#ffffff">Community</text>
+  <text x="72" y="310" font-family="Helvetica Neue, Arial" font-size="66" font-weight="700" fill="#ffffff">Reservations</text>
+  <text x="72" y="364" font-family="Helvetica Neue, Arial" font-size="26" fill="#dfe5ff">Book rooms, equipment, and spaces,</text>
+  <text x="72" y="398" font-family="Helvetica Neue, Arial" font-size="26" fill="#dfe5ff">with zero double bookings.</text>
+
+  <!-- Feature chips -->
+  <g font-family="Helvetica Neue, Arial" font-size="20" font-weight="600" fill="#ffffff">
+    <rect x="72" y="446" width="148" height="44" rx="22" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="146" y="475" text-anchor="middle">JWT auth</text>
+    <rect x="232" y="446" width="196" height="44" rx="22" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="330" y="475" text-anchor="middle">Role-based access</text>
+    <rect x="440" y="446" width="148" height="44" rx="22" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="514" y="475" text-anchor="middle">PostgreSQL</text>
+    <rect x="72" y="502" width="196" height="44" rx="22" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="170" y="531" text-anchor="middle">87 passing tests</text>
+    <rect x="280" y="502" width="164" height="44" rx="22" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="362" y="531" text-anchor="middle">GitHub Actions</text>
+    <rect x="456" y="502" width="132" height="44" rx="22" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="522" y="531" text-anchor="middle">Pagination</text>
+  </g>
+
+  <!-- Booking card -->
+  <g transform="translate(676,96)" filter="url(#shadow)">
+    <rect width="452" height="438" rx="22" fill="#ffffff"/>
+    <text x="32" y="52" font-family="Helvetica Neue, Arial" font-size="24" font-weight="700" fill="#1c2333">Study Room A</text>
+    <rect x="300" y="30" width="120" height="30" rx="15" fill="#eef1fb"/>
+    <text x="360" y="51" text-anchor="middle" font-family="Helvetica Neue, Arial" font-size="16" font-weight="600" fill="#3355d1">room · 6 seats</text>
+    <text x="32" y="84" font-family="Helvetica Neue, Arial" font-size="17" fill="#667085">Tue, Oct 20 · times in UTC</text>
+
+    <g font-family="Helvetica Neue, Arial" font-size="16" fill="#98a2b3">
+      <text x="32" y="130">09:00</text><line x1="96" y1="125" x2="420" y2="125" stroke="#eef0f4"/>
+      <text x="32" y="186">10:00</text><line x1="96" y1="181" x2="420" y2="181" stroke="#eef0f4"/>
+      <text x="32" y="242">11:00</text><line x1="96" y1="237" x2="420" y2="237" stroke="#eef0f4"/>
+      <text x="32" y="298">12:00</text><line x1="96" y1="293" x2="420" y2="293" stroke="#eef0f4"/>
+      <text x="32" y="354">13:00</text><line x1="96" y1="349" x2="420" y2="349" stroke="#eef0f4"/>
+    </g>
+
+    <!-- confirmed booking 10:00-12:00 -->
+    <rect x="104" y="183" width="316" height="108" rx="12" fill="#e6f6ec" stroke="#1f8a4c" stroke-width="2"/>
+    <text x="122" y="214" font-family="Helvetica Neue, Arial" font-size="18" font-weight="700" fill="#1f8a4c">Confirmed · 10:00 to 12:00</text>
+    <text x="122" y="240" font-family="Helvetica Neue, Arial" font-size="16" fill="#2f6b47">Group study session</text>
+
+    <!-- attempted overlapping booking -->
+    <rect x="150" y="254" width="270" height="82" rx="12" fill="#fdecea" fill-opacity="0.95" stroke="#c4372f" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="168" y="286" font-family="Helvetica Neue, Arial" font-size="18" font-weight="700" fill="#c4372f">409 Conflict</text>
+    <text x="168" y="312" font-family="Helvetica Neue, Arial" font-size="15" fill="#a33a33">Slot overlaps a reservation</text>
+
+    <rect x="32" y="378" width="388" height="36" rx="10" fill="#f4f6fb"/>
+    <text x="226" y="402" text-anchor="middle" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#3355d1">POST /api/v1/reservations</text>
+  </g>
+
+  <text x="72" y="596" font-family="Helvetica Neue, Arial" font-size="20" fill="#c9d3ff">github.com/nishithata/community-reservations-api</text>
+</svg>
