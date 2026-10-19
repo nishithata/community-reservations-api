@@ -1,11 +1,9 @@
-# Render Blueprint: one-click deploy of the API and its PostgreSQL database.
+# Render Blueprint: one-click deploy of the API.
 # Dashboard -> New -> Blueprint -> select this repository.
-databases:
-  - name: community-reservations-db
-    plan: free
-    databaseName: community_reservations
-    user: community_reservations
-
+#
+# PostgreSQL is hosted on Neon (free tier, no expiry). Set DATABASE_URL in the
+# Render dashboard to Neon's *direct* (non-pooled) connection string. See
+# docs/DEPLOYMENT.md for using a Render-managed database instead.
 services:
   - type: web
     name: community-reservations-api
@@ -16,9 +14,7 @@ services:
     healthCheckPath: /up
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: community-reservations-db
-          property: connectionString
+        sync: false
       - key: SECRET_KEY_BASE
         generateValue: true
       - key: JWT_SECRET
@@ -32,7 +28,7 @@ services:
         value: "5"
       - key: SEED_DEMO_DATA
         value: "true"
-      # Set these two in the Render dashboard; they are never committed.
+      # Set these in the Render dashboard; they are never committed.
       - key: DEMO_ADMIN_PASSWORD
         sync: false
       - key: CORS_ORIGINS

@@ -59,7 +59,7 @@ flowchart LR
         C --> S["Serializers"]
     end
 
-    M --> DB[("PostgreSQL<br/>constraints + exclusion constraint")]
+    M --> DB[("PostgreSQL on Neon<br/>constraints + exclusion constraint")]
 ```
 
 ```mermaid
@@ -129,7 +129,7 @@ This is proven by a database-level model test, a request test with the model che
 | Testing | Minitest (model and request tests), end-to-end and race scripts |
 | Quality & security | RuboCop (Rails Omakase), Brakeman, bundler-audit |
 | CI/CD | GitHub Actions |
-| Deployment | Docker, Render (API + PostgreSQL), Vercel (demo UI) |
+| Deployment | Docker, Render (API), Neon (PostgreSQL), Vercel (demo UI) |
 
 ## ⚡ Quick start
 
@@ -256,7 +256,8 @@ docs/                      API reference · architecture · deployment
 
 ## ☁️ Deployment
 
-- **API → Render:** New → Blueprint → select this repo. `render.yaml` provisions PostgreSQL and the web service, generates secrets, runs migrations, and seeds demo data.
+- **Database → Neon:** free serverless PostgreSQL with no expiry; set its direct connection string as `DATABASE_URL`.
+- **API → Render:** New → Blueprint → select this repo. `render.yaml` creates the web service, generates secrets, runs migrations, and seeds demo data.
 - **UI → Vercel:** import the repo with **Root Directory** set to `web`. No build step is needed.
 
 Step-by-step instructions and a demo safety checklist are in **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
