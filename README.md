@@ -13,7 +13,7 @@ Built for the **Community of Guardians** project.
 ![Tests](https://img.shields.io/badge/tests-87%20passing-2EA44F)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-[**Live demo**](#-live-demo) · [**Quick start**](#-quick-start) · [**API docs**](docs/API.md) · [**Architecture**](docs/ARCHITECTURE.md) · [**Deployment**](docs/DEPLOYMENT.md)
+[**Live demo**](https://community-reservations-api-web.vercel.app) · [**Quick start**](#-quick-start) · [**API docs**](docs/API.md) · [**Architecture**](docs/ARCHITECTURE.md) · [**Deployment**](docs/DEPLOYMENT.md)
 
 </div>
 
@@ -27,8 +27,8 @@ Booking systems look simple until two people click **Reserve** at the same momen
 
 | | |
 |---|---|
-| **Demo UI** (Vercel) | _coming soon_ |
-| **API** (Render) | _coming soon_: try `/api/v1/health` |
+| **Demo UI** (Vercel) | **https://community-reservations-api-web.vercel.app** |
+| **API** (Render) | **https://community-reservations-api.onrender.com** (try [`/api/v1/health`](https://community-reservations-api.onrender.com/api/v1/health)) |
 | **Demo login** | `demo@example.com` / `demo-password-123` |
 
 > The API runs on a free tier that sleeps when idle, so the first request can take 30-60 seconds while it wakes up.
