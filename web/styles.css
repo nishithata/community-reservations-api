@@ -7,7 +7,7 @@
   --primary: #3355d1;
   --primary-dark: #2643ad;
   --danger: #c4372f;
-  --success: #1f8a4c;
+  --success: #17733f;
   --radius: 12px;
   --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 4px 16px rgba(16, 24, 40, 0.06);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -45,7 +45,7 @@ code { font-size: 0.85em; }
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem;
   width: 100%; max-width: 1200px; margin: 1.5rem auto; padding: 0 1.25rem; flex: 1;
 }
-.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.25rem; }
+.card { min-width: 0; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.25rem; }
 .span-2 { grid-column: span 2; }
 .span-3 { grid-column: span 3; }
 .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
@@ -83,11 +83,11 @@ input:focus, select:focus, textarea:focus { outline: 2px solid rgba(51, 85, 209,
   display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
   background: #eef1fb; color: var(--primary); text-transform: capitalize;
 }
-.pill-muted { background: #f0f1f4; color: var(--muted); }
+.pill-muted { background: #f0f1f4; color: #556070; }
 .pill-confirmed { background: #e6f6ec; color: var(--success); }
 .pill-cancelled { background: #fdecea; color: var(--danger); }
 .pill-room { background: #eef1fb; color: #3355d1; }
-.pill-equipment { background: #fff4e5; color: #b4610b; }
+.pill-equipment { background: #fff4e5; color: #8f4d08; }
 .pill-space { background: #e9f7f1; color: #1d7a55; }
 .pill-vehicle { background: #f4ecfd; color: #7340c7; }
 
@@ -126,6 +126,8 @@ th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; colo
 .footer a { color: var(--primary); }
 
 @media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
+  /* minmax(0, 1fr), not 1fr: a plain 1fr column grows to fit its widest content
+     (the reservations table), which made the page wider than phone screens. */
+  .layout { grid-template-columns: minmax(0, 1fr); }
   .span-2, .span-3 { grid-column: auto; }
 }
