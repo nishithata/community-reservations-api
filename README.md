@@ -6,12 +6,18 @@
 
 Built for the **Community of Guardians** project.
 
+<a href="https://community-reservations-api-web.vercel.app"><img src="web/og-image.png" alt="Community Reservations: a booking calendar showing a confirmed slot and a rejected overlapping request (409 Conflict)" width="820"></a>
+
 [![CI](https://github.com/nishithata/community-reservations-api/actions/workflows/ci.yml/badge.svg)](https://github.com/nishithata/community-reservations-api/actions/workflows/ci.yml)
 ![Ruby](https://img.shields.io/badge/Ruby-3.4-CC342D?logo=ruby&logoColor=white)
 ![Rails](https://img.shields.io/badge/Rails-8.1-D30001?logo=rubyonrails&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14%2B-4169E1?logo=postgresql&logoColor=white)
 ![Tests](https://img.shields.io/badge/tests-87%20passing-2EA44F)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+<br>
+[![API on Render](https://img.shields.io/badge/API-Render-46E3B7?logo=render&logoColor=white)](https://community-reservations-api.onrender.com/api/v1/health)
+[![Database on Neon](https://img.shields.io/badge/Database-Neon-00E599?logo=postgresql&logoColor=white)](https://neon.tech)
+[![UI on Vercel](https://img.shields.io/badge/UI-Vercel-000000?logo=vercel&logoColor=white)](https://community-reservations-api-web.vercel.app)
 
 [**Live demo**](https://community-reservations-api-web.vercel.app) · [**Quick start**](#-quick-start) · [**API docs**](docs/API.md) · [**Architecture**](docs/ARCHITECTURE.md) · [**Deployment**](docs/DEPLOYMENT.md)
 
@@ -29,7 +35,16 @@ Booking systems look simple until two people click **Reserve** at the same momen
 |---|---|
 | **Demo UI** (Vercel) | **https://community-reservations-api-web.vercel.app** |
 | **API** (Render) | **https://community-reservations-api.onrender.com** (try [`/api/v1/health`](https://community-reservations-api.onrender.com/api/v1/health)) |
+| **Database** | Serverless PostgreSQL on Neon |
 | **Demo login** | `demo@example.com` / `demo-password-123` |
+
+**Try it in 60 seconds**
+
+1. Open the [demo](https://community-reservations-api-web.vercel.app) and wait for the badge to show **API online**.
+2. Click **Use demo account**.
+3. Pick a resource, choose a date and time, and click **Reserve**.
+4. Click **Reserve** again for the same slot: the API rejects it with **409 Conflict**.
+5. Cancel the booking under **My reservations** and watch the slot free up.
 
 > The API runs on a free tier that sleeps when idle, so the first request can take 30-60 seconds while it wakes up.
 
@@ -255,6 +270,16 @@ docs/                      API reference · architecture · deployment
 ```
 
 ## ☁️ Deployment
+
+```mermaid
+flowchart LR
+    user(["Browser"]) --> vercel["Vercel<br/>static demo UI"]
+    vercel -- "fetch + JWT<br/>(CORS allow-listed)" --> render["Render<br/>Rails API (Puma)"]
+    render -- "TLS" --> neon[("Neon<br/>PostgreSQL")]
+    github["GitHub<br/>push to main"] -. "auto-deploy" .-> vercel
+    github -. "auto-deploy:<br/>migrate + seed" .-> render
+    github -. "CI" .-> actions["GitHub Actions"]
+```
 
 - **Database → Neon:** free serverless PostgreSQL with no expiry; set its direct connection string as `DATABASE_URL`.
 - **API → Render:** New → Blueprint → select this repo. `render.yaml` creates the web service, generates secrets, runs migrations, and seeds demo data.
